@@ -1,6 +1,7 @@
-# Reducing netwrok calls
+# Reducing network calls
 
 Main focus of this project is to reduce network calls specifically when a Parent component doesn't know of it's children and children have the possibility to make same network calls. 
+
 ### `npm start`
 
 Runs the app in the development mode.\
