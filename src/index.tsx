@@ -43,60 +43,71 @@ const fetchGetWrapper = () => {
 
 const customFetch = fetchGetWrapper();
 
-const USERS_API = "https://mocki.io/v1/d4867d8b-b5d5-4a48-a4ab-79131b5809b8";
+const USERS_API = "https://jsonplaceholder.typicode.com/users";
+const POSTS_API = "https://jsonplaceholder.typicode.com/posts";
 
 interface User {
   name: string;
-  city: string;
+  email: string;
 }
 
-const Comp1 = () => {
+interface Post {
+  id: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  url: string;
+}
+
+const Comp1 = ({ url }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<User[]>([]);
   useEffect(() => {
     const fn = async () => {
       setIsLoading(true);
-      const data = await customFetch<User[]>(USERS_API);
+      const data = await customFetch<User[]>(url);
       setIsLoading(false);
       setData(data);
     };
     fn();
-  }, [setData]);
+  }, [url]);
 
   if (isLoading) {
     return <span>Loading...</span>;
   }
 
-  return <div>{JSON.stringify(data)}</div>;
+  return <div>{`Comp1 ${data.length}`}</div>;
 };
 
-const Comp2 = () => {
+const Comp2 = ({ url }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<User[]>([]);
+  const [data, setData] = useState<Post[]>([]);
   useEffect(() => {
     const fn = async () => {
       setIsLoading(true);
-      const data = await customFetch<User[]>(USERS_API);
+      const data = await customFetch<Post[]>(url);
       setIsLoading(false);
       setData(data);
     };
     fn();
-  }, []);
+  }, [url]);
 
   if (isLoading) {
     return <span>Loading...</span>;
   }
 
-  return <div>{JSON.stringify(data)}</div>;
+  return <div>{`Comp2 ${data.length}`}</div>;
 };
 
 const App = () => {
   return (
     <div>
-      <Comp1 />
-      <Comp1 />
-      <Comp2 />
-      <Comp2 />
+      <Comp1 url={USERS_API} />
+      <Comp1 url={POSTS_API} />
+      <Comp2 url={USERS_API} />
+      <Comp2 url={POSTS_API} />
     </div>
   );
 };
