@@ -2,6 +2,8 @@
 
 Main focus of this project is to reduce network calls specifically when a Parent component doesn't know of it's children and children have the possibility to make same network calls. 
 
+Note: We have to understand when to clear cache based on application need and have that logic added.
+
 ### `npm start`
 
 Runs the app in the development mode.\
